@@ -151,7 +151,7 @@ namespace WinFormsAppOOP
         {
             if (e.Control is TextBox textBox)
             {
-                 textBox.KeyPress += textBoxCellMaterial_KeyPress;
+                textBox.KeyPress += textBoxCellMaterial_KeyPress;
             }
         }
 
@@ -182,6 +182,8 @@ namespace WinFormsAppOOP
 
             if (article == -1)
             {
+                pictureBoxPhoto.Image = new Bitmap("C:/Users/1/Desktop/Picture.png");
+
                 buttonEdit.Text = "Добавить";
                 ShowType(1);
                 textBoxPeople.Text = "0";
@@ -268,11 +270,11 @@ namespace WinFormsAppOOP
 
             if (result == DialogResult.OK)
             {
-                string selectedFilePath = openFileDialog.FileName;
+                string pathImageNew = openFileDialog.FileName;
 
-                pictureBoxPhoto.Image = new Bitmap(selectedFilePath);
+                pictureBoxPhoto.Image = new Bitmap(pathImageNew);
 
-                selectedFilePath = selectedFilePath.Replace(startFile, "");
+                selectedFilePath = pathImageNew.Replace(startFile, "");
 
 
 
@@ -338,26 +340,30 @@ namespace WinFormsAppOOP
             int articleProduct = Convert.ToInt32(textBoxArticle.Text);
             NpgsqlDataReader dataReader;
 
-
-            sql = "select pr.article from public.\"Product\" as pr";
-            
-            command = new NpgsqlCommand(sql, connection);   
-
-            dataReader = command.ExecuteReader();
-            
-            while(dataReader.Read())
+            if (article != articleProduct)
             {
-                if (dataReader.GetInt32(0) == articleProduct)
+                sql = "select pr.article from public.\"Product\" as pr";
+
+                command = new NpgsqlCommand(sql, connection);
+
+                dataReader = command.ExecuteReader();
+
+                while (dataReader.Read())
                 {
-                    MessageBox.Show("Данный артикль занят");
-                    dataReader.Close();
-                    return;
+                    if (dataReader.GetInt32(0) == articleProduct)
+                    {
+                        MessageBox.Show("Данный артикль занят");
+                        dataReader.Close();
+                        return;
+                    }
                 }
+
+                dataReader.Close();
             }
 
-            dataReader.Close();
-
             
+
+
 
 
             string name = textBoxName.Text;
@@ -365,7 +371,7 @@ namespace WinFormsAppOOP
             int price = Convert.ToInt32(textBoxPrice.Text);
             int people = Convert.ToInt32(textBoxPeople.Text);
             int workshop = Convert.ToInt32(textBoxWorkshop.Text);
-            
+
 
             if (article == articleProduct)
             {
@@ -408,7 +414,7 @@ namespace WinFormsAppOOP
 
             }
 
-            
+
             if (dataTableMaterials.Rows.Count > 0)
             {
                 sql = "insert into public.\"ProductMaterials\" " +
@@ -438,13 +444,18 @@ namespace WinFormsAppOOP
             }
 
 
-            
+
 
 
             formMain.ShowProducts();
             MessageBox.Show(messageComplete);
 
 
+        }
+
+        private void buttonClose_Click(object sender, EventArgs e)
+        {
+            this.Hide();
         }
     }
 }

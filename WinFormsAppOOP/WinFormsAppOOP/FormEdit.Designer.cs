@@ -53,6 +53,7 @@
             comboBoxAddMat = new ComboBox();
             dataGridViewMaterials = new DataGridView();
             label8 = new Label();
+            buttonClose = new Button();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBoxPhoto).BeginInit();
             panel2.SuspendLayout();
@@ -315,13 +316,27 @@
             label8.TabIndex = 0;
             label8.Text = "Материалы";
             // 
+            // buttonClose
+            // 
+            buttonClose.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            buttonClose.Location = new Point(758, 376);
+            buttonClose.Name = "buttonClose";
+            buttonClose.Size = new Size(121, 28);
+            buttonClose.TabIndex = 18;
+            buttonClose.Text = "Отмена";
+            buttonClose.UseVisualStyleBackColor = true;
+            buttonClose.Click += buttonClose_Click;
+            // 
             // FormEdit
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(891, 383);
+            ClientSize = new Size(891, 416);
+            Controls.Add(buttonClose);
             Controls.Add(panel2);
             Controls.Add(panel1);
+            FormBorderStyle = FormBorderStyle.FixedDialog;
+            MaximizeBox = false;
             Name = "FormEdit";
             ShowIcon = false;
             StartPosition = FormStartPosition.CenterScreen;
@@ -363,5 +378,6 @@
         private DataGridView dataGridViewMaterials;
         private Label label8;
         private Button buttonAddMat;
+        private Button buttonClose;
     }
 }

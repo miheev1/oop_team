@@ -32,18 +32,20 @@
             buttonEdit = new Button();
             textBoxPrice = new TextBox();
             label1 = new Label();
+            buttonClose = new Button();
             panel1.SuspendLayout();
             SuspendLayout();
             // 
             // panel1
             // 
             panel1.BackColor = Color.FromArgb(206, 255, 249);
+            panel1.Controls.Add(buttonClose);
             panel1.Controls.Add(buttonEdit);
             panel1.Controls.Add(textBoxPrice);
             panel1.Controls.Add(label1);
             panel1.Location = new Point(12, 12);
             panel1.Name = "panel1";
-            panel1.Size = new Size(213, 127);
+            panel1.Size = new Size(248, 127);
             panel1.TabIndex = 0;
             panel1.Paint += panel1_Paint;
             // 
@@ -75,12 +77,25 @@
             label1.TabIndex = 0;
             label1.Text = "Новая цена";
             // 
+            // buttonClose
+            // 
+            buttonClose.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            buttonClose.Location = new Point(133, 78);
+            buttonClose.Name = "buttonClose";
+            buttonClose.Size = new Size(100, 32);
+            buttonClose.TabIndex = 3;
+            buttonClose.Text = "Отмена";
+            buttonClose.UseVisualStyleBackColor = true;
+            buttonClose.Click += buttonClose_Click;
+            // 
             // FormEditPrices
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(237, 152);
+            ClientSize = new Size(274, 150);
             Controls.Add(panel1);
+            FormBorderStyle = FormBorderStyle.FixedDialog;
+            MaximizeBox = false;
             Name = "FormEditPrices";
             ShowIcon = false;
             StartPosition = FormStartPosition.CenterScreen;
@@ -97,5 +112,6 @@
         private Button buttonEdit;
         private TextBox textBoxPrice;
         private Label label1;
+        private Button buttonClose;
     }
 }

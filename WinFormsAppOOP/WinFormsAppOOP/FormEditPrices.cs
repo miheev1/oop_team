@@ -44,7 +44,7 @@ namespace WinFormsAppOOP
             {
                 e.Handled = true;
             }
-            
+
         }
 
         private void FormEditPricecs_Load(object sender, EventArgs e)
@@ -109,6 +109,11 @@ namespace WinFormsAppOOP
 
 
 
+        }
+
+        private void buttonClose_Click(object sender, EventArgs e)
+        {
+            this.Hide();
         }
     }
 }

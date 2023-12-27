@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             panel1 = new Panel();
+            buttonEditPrice = new Button();
             buttonEditProduct = new Button();
             buttonAddProduct = new Button();
             labelSelectedCount = new Label();
@@ -40,12 +41,19 @@
             comboBoxSort = new ComboBox();
             textBoxSearch = new TextBox();
             flowLayoutPanelProducts = new FlowLayoutPanel();
+            label1 = new Label();
+            label2 = new Label();
+            label3 = new Label();
             panel1.SuspendLayout();
             SuspendLayout();
             // 
             // panel1
             // 
             panel1.BackColor = Color.FromArgb(206, 255, 249);
+            panel1.Controls.Add(label3);
+            panel1.Controls.Add(label2);
+            panel1.Controls.Add(label1);
+            panel1.Controls.Add(buttonEditPrice);
             panel1.Controls.Add(buttonEditProduct);
             panel1.Controls.Add(buttonAddProduct);
             panel1.Controls.Add(labelSelectedCount);
@@ -59,25 +67,37 @@
             panel1.Controls.Add(flowLayoutPanelProducts);
             panel1.Location = new Point(12, 12);
             panel1.Name = "panel1";
-            panel1.Size = new Size(648, 386);
+            panel1.Size = new Size(648, 470);
             panel1.TabIndex = 0;
+            // 
+            // buttonEditPrice
+            // 
+            buttonEditPrice.Enabled = false;
+            buttonEditPrice.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            buttonEditPrice.Location = new Point(455, 422);
+            buttonEditPrice.Name = "buttonEditPrice";
+            buttonEditPrice.Size = new Size(171, 28);
+            buttonEditPrice.TabIndex = 12;
+            buttonEditPrice.Text = "Изменить цену на";
+            buttonEditPrice.UseVisualStyleBackColor = true;
+            buttonEditPrice.Click += buttonEditPrice_Click;
             // 
             // buttonEditProduct
             // 
+            buttonEditProduct.Enabled = false;
             buttonEditProduct.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
-            buttonEditProduct.Location = new Point(309, 353);
+            buttonEditProduct.Location = new Point(236, 422);
             buttonEditProduct.Name = "buttonEditProduct";
             buttonEditProduct.Size = new Size(171, 28);
             buttonEditProduct.TabIndex = 11;
             buttonEditProduct.Text = "Редактировать";
             buttonEditProduct.UseVisualStyleBackColor = true;
-            buttonEditProduct.Visible = false;
             buttonEditProduct.Click += buttonEditProduct_Click;
             // 
             // buttonAddProduct
             // 
             buttonAddProduct.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
-            buttonAddProduct.Location = new Point(132, 353);
+            buttonAddProduct.Location = new Point(18, 422);
             buttonAddProduct.Name = "buttonAddProduct";
             buttonAddProduct.Size = new Size(171, 28);
             buttonAddProduct.TabIndex = 10;
@@ -89,7 +109,7 @@
             // 
             labelSelectedCount.AutoSize = true;
             labelSelectedCount.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
-            labelSelectedCount.Location = new Point(16, 358);
+            labelSelectedCount.Location = new Point(18, 382);
             labelSelectedCount.Name = "labelSelectedCount";
             labelSelectedCount.Size = new Size(73, 20);
             labelSelectedCount.TabIndex = 9;
@@ -99,7 +119,7 @@
             // 
             labelProductsCount.AutoSize = true;
             labelProductsCount.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
-            labelProductsCount.Location = new Point(628, 10);
+            labelProductsCount.Location = new Point(630, 34);
             labelProductsCount.Name = "labelProductsCount";
             labelProductsCount.Size = new Size(0, 20);
             labelProductsCount.TabIndex = 8;
@@ -108,7 +128,7 @@
             // 
             comboBoxFilter.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBoxFilter.FormattingEnabled = true;
-            comboBoxFilter.Location = new Point(438, 11);
+            comboBoxFilter.Location = new Point(440, 35);
             comboBoxFilter.Name = "comboBoxFilter";
             comboBoxFilter.Size = new Size(121, 23);
             comboBoxFilter.TabIndex = 2;
@@ -116,7 +136,7 @@
             // 
             // textBoxPage
             // 
-            textBoxPage.Location = new Point(544, 354);
+            textBoxPage.Location = new Point(546, 378);
             textBoxPage.Name = "textBoxPage";
             textBoxPage.Size = new Size(59, 23);
             textBoxPage.TabIndex = 7;
@@ -125,7 +145,7 @@
             // 
             labelPrev.AutoSize = true;
             labelPrev.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
-            labelPrev.Location = new Point(519, 353);
+            labelPrev.Location = new Point(521, 377);
             labelPrev.Name = "labelPrev";
             labelPrev.Size = new Size(19, 20);
             labelPrev.TabIndex = 6;
@@ -136,7 +156,7 @@
             // 
             labelNext.AutoSize = true;
             labelNext.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
-            labelNext.Location = new Point(609, 353);
+            labelNext.Location = new Point(611, 377);
             labelNext.Name = "labelNext";
             labelNext.Size = new Size(19, 20);
             labelNext.TabIndex = 4;
@@ -147,7 +167,7 @@
             // 
             comboBoxSort.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBoxSort.FormattingEnabled = true;
-            comboBoxSort.Location = new Point(311, 11);
+            comboBoxSort.Location = new Point(313, 35);
             comboBoxSort.Name = "comboBoxSort";
             comboBoxSort.Size = new Size(121, 23);
             comboBoxSort.TabIndex = 3;
@@ -155,11 +175,10 @@
             // 
             // textBoxSearch
             // 
-            textBoxSearch.Location = new Point(16, 11);
+            textBoxSearch.Location = new Point(18, 37);
             textBoxSearch.Name = "textBoxSearch";
             textBoxSearch.Size = new Size(215, 23);
             textBoxSearch.TabIndex = 1;
-            textBoxSearch.Text = "Поиск";
             textBoxSearch.TextChanged += textBoxSearch_TextChanged;
             // 
             // flowLayoutPanelProducts
@@ -167,18 +186,50 @@
             flowLayoutPanelProducts.AutoScroll = true;
             flowLayoutPanelProducts.BackColor = Color.White;
             flowLayoutPanelProducts.BorderStyle = BorderStyle.FixedSingle;
-            flowLayoutPanelProducts.Location = new Point(16, 42);
+            flowLayoutPanelProducts.Location = new Point(18, 66);
             flowLayoutPanelProducts.Name = "flowLayoutPanelProducts";
             flowLayoutPanelProducts.Size = new Size(612, 308);
             flowLayoutPanelProducts.TabIndex = 0;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            label1.Location = new Point(18, 14);
+            label1.Name = "label1";
+            label1.Size = new Size(52, 20);
+            label1.TabIndex = 13;
+            label1.Text = "Поиск";
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            label2.Location = new Point(313, 12);
+            label2.Name = "label2";
+            label2.Size = new Size(92, 20);
+            label2.TabIndex = 14;
+            label2.Text = "Сортировка";
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            label3.Location = new Point(440, 12);
+            label3.Name = "label3";
+            label3.Size = new Size(60, 20);
+            label3.TabIndex = 15;
+            label3.Text = "Фильтр";
             // 
             // FormMain
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
-            ClientSize = new Size(674, 414);
+            ClientSize = new Size(674, 497);
             Controls.Add(panel1);
+            FormBorderStyle = FormBorderStyle.FixedDialog;
+            MaximizeBox = false;
             Name = "FormMain";
             ShowIcon = false;
             StartPosition = FormStartPosition.CenterScreen;
@@ -204,5 +255,9 @@
         private Label labelSelectedCount;
         private Button buttonEditProduct;
         private Button buttonAddProduct;
+        private Button buttonEditPrice;
+        private Label label3;
+        private Label label2;
+        private Label label1;
     }
 }

@@ -152,12 +152,13 @@ namespace WinFormsAppOOP
 
                 DataRow row = dataTable.Rows[i];
 
-                if (search != "" && search != "Поиск")
+                if (search != "")
                 {
 
                     string name = row[2].ToString();
+                    string type = row[1].ToString();
 
-                    if (!name.Contains(search))
+                    if (!$"{type} | {name}".Contains(search))
                     {
                         dataTable.Rows.RemoveAt(i);
                         continue;
@@ -261,22 +262,22 @@ namespace WinFormsAppOOP
             }
             labelSelectedCount.Text = $"Выбрано {selectArticles.Count}";
 
-            if (selectArticles.Count > 0)
+            if (selectArticles.Count == 1)
             {
-                buttonEditProduct.Visible = true;
+                buttonEditProduct.Enabled = true;
 
-                if (selectArticles.Count == 1)
-                {
-                    buttonEditProduct.Text = "Изменить";
-                }
-                else
-                {
-                    buttonEditProduct.Text = "Изменить цену на";
-                }
             }
             else
             {
-                buttonEditProduct.Visible = false;
+                buttonEditProduct.Enabled = false;
+            }
+            if (selectArticles.Count > 1)
+            {
+                buttonEditPrice.Enabled = true;
+            }
+            else
+            {
+                buttonEditPrice.Enabled = false;
             }
 
 
@@ -376,7 +377,6 @@ namespace WinFormsAppOOP
         private Panel CreatePanel(string text)
         {
             Panel panel = new Panel();
-            //panel.BorderStyle = BorderStyle.FixedSingle;
             panel.Margin = new Padding(0, 10, 10, 10);
             panel.Height = 78;
             panel.BackColor = Color.Transparent;
@@ -620,19 +620,10 @@ namespace WinFormsAppOOP
 
         private void buttonEditProduct_Click(object sender, EventArgs e)
         {
-            if (buttonEditProduct.Text == "Изменить")
-            {
-                FormEdit form = new FormEdit(connection, selectArticles[0], this);
+            FormEdit form = new FormEdit(connection, selectArticles[0], this);
 
-                form.ShowDialog();
-            }
-            else
-            {
-                FormEditPrices form = new FormEditPrices(connection, selectArticles, this);
+            form.ShowDialog();
 
-                form.ShowDialog();
-
-            }
         }
 
         private void buttonAddProduct_Click(object sender, EventArgs e)
@@ -640,6 +631,14 @@ namespace WinFormsAppOOP
             FormEdit form = new FormEdit(connection, -1, this);
 
             form.ShowDialog();
+        }
+
+        private void buttonEditPrice_Click(object sender, EventArgs e)
+        {
+            FormEditPrices form = new FormEditPrices(connection, selectArticles, this);
+
+            form.ShowDialog();
+
         }
     }
 }
